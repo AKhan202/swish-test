@@ -1,0 +1,42 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJkb2NrZXItaG9zdDo1MDAwIjp7InVzZXJuYW1lIjoiZG9ja191c2VyIiwicGFzc3dvcmQiOiJkb2NrX3Bhc3N3b3JkIiwiZW1haWwiOiJkb2NrX3VzZXJAZG9ja2VyLWhvc3QiLCJhdXRoIjoiWkc5amExOTFjMlZ5T21SdlkydGZjR0Z6YzNkdmNtUT0ifX19
+kind: Secret
+metadata:
+  name: private-reg-cred
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: playground-sample-project
+spec:
+  selector:
+    matchLabels:
+      app: playground-sample-project
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: playground-sample-project
+    spec:
+      imagePullSecrets: 
+      - name: private-reg-cred
+      containers:
+        - name: playground-sample-project
+          image: docker-host:5000/playground-image:public
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 
+---
+apiVersion: v1
+kind: Service 
+metadata: 
+  name: playground-sample-project-svc
+spec:
+  type: NodePort
+  selector:
+    app: playground-sample-project
+  ports:
+    - port: 8080 
+      targetPort: 8080

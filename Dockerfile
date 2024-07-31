@@ -18,3 +18,10 @@ COPY requirements.txt /app/
 RUN pip3 install -r requirements.txt
 # Set the default command to run when the container starts
 CMD ["bash"]
+
+
+
+FROM openjdk:8
+EXPOSE 8080
+ADD target/kubernetes.jar kubernetes.jar
+ENTRYPOINT ["java","-jar","/kubernetes.jar"]
