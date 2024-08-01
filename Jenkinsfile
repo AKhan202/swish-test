@@ -6,6 +6,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Checkout') {
+            steps {
+                git credentialsId: 'cb3ff1bd-ddc7-45fa-9fc0-36f68309366f', url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git'
+            }
+        }
+
         stage('Build Maven') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/khana/swish-repo.git']]])
