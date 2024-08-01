@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build Maven') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/khana/swish-repo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git']]])
                 sh 'mvn clean install'
             }
         }
