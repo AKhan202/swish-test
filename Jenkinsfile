@@ -5,8 +5,7 @@ pipeline {
         KUBECONFIG = credentials('swish-test')   // Jenkins credentials to store kubeconfig
     }
 
-    stages 
-
+    stages {
         stage('Build Maven') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/khana/swish-repo.git']]])
@@ -37,4 +36,4 @@ pipeline {
             }
         }
     }
-
+}
