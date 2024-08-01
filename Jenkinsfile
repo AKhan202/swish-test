@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: '5eff71a5-22c7-4e22-adc5-107c3d3bc489', url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git'
+                git credentialsId: 'cb3ff1bd-ddc7-45fa-9fc0-36f68309366f', url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git'
             }
         }
 
