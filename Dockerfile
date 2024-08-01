@@ -1,27 +1,29 @@
-#  Dockerfile
-# Base image that includes Python 2, Python 3, and R using debian image
+# Use Debian Bullseye as the base image
 FROM debian:bullseye
-# Install Python 2, Python 3, R, packages
+
+# Install Python 2, Python 3, R, and Java
 RUN apt-get update && \
     apt-get install -y \
         python2.7 python3-pip \
         python3 python3-pip \
         r-base \
-        # Add additional packages as needed
+        openjdk-11-jdk \
+        maven \
         && \
     apt-get clean
-# Set up a working directory '/app' 
+
+# Set up a working directory '/app'
 WORKDIR /app
-# Copy your application code and requirements.txt file into the container
+
+# Copy requirements.txt file into the container and install Python dependencies
 COPY requirements.txt /app/
-# Installing Python dependencies
 RUN pip3 install -r requirements.txt
-# Set the default command to run when the container starts
-CMD ["bash"]
 
+# Copy the JAR file from the build context to the container
+COPY target/kubernetes.jar /kubernetes.jar
 
-
-FROM openjdk:8
+# Expose the port that your application will run on
 EXPOSE 8080
-ADD target/kubernetes.jar kubernetes.jar
-ENTRYPOINT ["java","-jar","/kubernetes.jar"]
+
+# Set the entry point to run the JAR file
+ENTRYPOINT ["java", "-jar", "/kubernetes.jar"]
