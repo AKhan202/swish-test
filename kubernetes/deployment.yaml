@@ -24,7 +24,7 @@ spec:
       - name: private-reg-cred
       containers:
         - name: playground-sample-project
-          image: docker-host:5000/playground-image:public
+          image: khana88/swish:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080 
