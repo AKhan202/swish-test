@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git(
-                    credentialsId: 'cb3ff1bd-ddc7-45fa-9fc0-36f68309366f', 
+                    credentialsId: 'cb3ff1bd-ddc7-45fa-9fc0-36f68309366f',
                     url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git',
                     branch: 'main'
                 )
@@ -20,7 +20,7 @@ pipeline {
         stage('Build Maven') {
             steps {
                 script {
-                    // Use the Git plugin to checkout the correct branch
+                    // Ensure the correct repository and branch are used
                     checkout([$class: 'GitSCM', 
                               branches: [[name: '*/main']], 
                               userRemoteConfigs: [[url: 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git']]
