@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git
+                git 'https://my-workspace21-admin@bitbucket.org/my-workspace21/swish-test.git'
             }
         }   
 
